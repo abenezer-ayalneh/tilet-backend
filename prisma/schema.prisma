@@ -15,7 +15,7 @@ model User {
   email        String   @unique
   phone_number String
   password     String
-  picture      String
+  picture      String   @default("https://placehold.co/600x400")
   status       Boolean  @default(true)
   created_at   DateTime @default(now())
   updated_at   DateTime @default(now()) @updatedAt
