@@ -22,9 +22,7 @@ export class AuthService {
     try {
       const user = await this.userService.create(request);
 
-      return this.signToken({
-        sub: user.id,
-      });
+      return this.signToken(user.id);
     } catch (error) {
       console.error(error);
       if (error instanceof ErrorCustomException) {
@@ -74,18 +72,17 @@ export class AuthService {
       );
     }
 
-    return this.signToken({
-      sub: user.id,
-    });
+    return this.signToken(user.id);
   }
 
-  async signToken(payload: {
-    sub: number | string;
-  }): Promise<{ accessToken: string }> {
-    const token = await this.jwt.signAsync(payload, {
-      expiresIn: `${this.configService.get('JWT_TTL')}m`,
-      secret: this.configService.get('JWT_SECRET'),
-    });
+  async signToken(sub: number | string): Promise<{ accessToken: string }> {
+    const token = await this.jwt.signAsync(
+      { sub },
+      {
+        expiresIn: `${this.configService.get('JWT_TTL')}m`,
+        secret: this.configService.get('JWT_SECRET'),
+      },
+    );
 
     return {
       accessToken: token,
