@@ -22,7 +22,9 @@ export class AuthService {
     try {
       const user = await this.userService.create(request);
 
-      return user;
+      return this.signToken({
+        sub: user.id,
+      });
     } catch (error) {
       console.error(error);
       if (error instanceof ErrorCustomException) {
