@@ -6,6 +6,7 @@ import {
   Post,
   UseFilters,
 } from '@nestjs/common';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { ErrorExceptionFilter } from 'src/utils/exception/error.filter';
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in-with-email.dto';
@@ -19,5 +20,11 @@ export class AuthController {
   @Post('signin')
   signIn(@Body() request: SignInDto) {
     return this.authService.signIn(request);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('signup')
+  signup(@Body() request: CreateUserDto) {
+    return this.authService.register(request);
   }
 }

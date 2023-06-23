@@ -3,7 +3,7 @@ export const ErrorMessages = {
   NOT_FOUND: 'error.NOT_FOUND',
   EXISTS: 'error.EXISTS',
   SOMETHING_WENT_WRONG: 'error.SOMETHING_WENT_WRONG',
-  IS_NOT_VALID: 'error.IS_NOT_VALID',
+  IS_NOT_VALID: '$property is not valid',
   IS_NOT_STRING: 'error.IS_NOT_STRING',
   IS_NOT_DATE: 'error.IS_NOT_DATE',
   IS_NOT_NUMBER: 'error.IS_NOT_NUMBER',

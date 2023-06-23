@@ -3,7 +3,6 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import * as argon from 'argon2';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { UserService } from 'src/user/user.service';
 import { ErrorCustomException } from 'src/utils/exception/error.filter';
@@ -17,7 +16,6 @@ export class AuthService {
     private jwt: JwtService,
     private configService: ConfigService,
     private userService: UserService,
-    private prismaService: PrismaService,
   ) {}
 
   async register(request: CreateUserDto) {
