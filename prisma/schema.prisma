@@ -4,8 +4,8 @@ datasource db {
 }
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["clientExtensions", "extendedWhereUnique"]
+  provider = "prisma-client-js"
+  // previewFeatures = ["clientExtensions", "extendedWhereUnique"]
 }
 
 model User {
@@ -21,4 +21,67 @@ model User {
   updated_at   DateTime @default(now()) @updatedAt
 
   @@map("users")
+}
+
+model Product {
+  id          Int             @id @default(autoincrement())
+  name        String
+  picture     String
+  price       Float
+  currency    ProductCurrency @default(BIRR)
+  size        ProductSize[]
+  gender      ProductGender
+  description String?
+  status      ProductStatus
+  detail      Json?
+  created_at  DateTime        @default(now())
+  updated_at  DateTime        @default(now()) @updatedAt
+
+  Ratings Rating[]
+
+  @@map("products")
+}
+
+enum ProductGender {
+  MALE
+  FEMALE
+  BOTH
+}
+
+enum ProductSize {
+  SMALL
+  MEDIUM
+  LARGE
+  XL
+  XXL
+  XXXL
+  XXXXL
+  XXXXXL
+  FREE
+}
+
+enum ProductStatus {
+  AVAILABLE
+  UNAVAILABLE
+  SOLD
+  COMING_SOON
+}
+
+enum ProductCurrency {
+  BIRR
+  DOLLAR
+}
+
+model Rating {
+  id          Int      @id @default(autoincrement())
+  value       Float
+  reviewer_id Int
+  review      String?
+  product_id  Int
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now()) @updatedAt
+
+  Product Product? @relation(fields: [product_id], references: [id])
+
+  @@map("ratings")
 }

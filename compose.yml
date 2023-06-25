@@ -30,6 +30,17 @@ services:
     ports:
       - '${POSTGRES_PORT}:5432'
 
+  meilisearch:
+    image: getmeili/meilisearch:v1.2
+    container_name: tilet-meilisearch
+    restart: unless-stopped
+    ports:
+      - '7700:7700'
+    env_file:
+      - .env
+    volumes:
+      - ./data/meilisearch:/meili_data
+
 volumes:
   data:
     driver: local
