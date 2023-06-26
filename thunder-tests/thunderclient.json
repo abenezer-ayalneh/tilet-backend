@@ -36,5 +36,93 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "e4eaa567-d9c6-4ed2-bc84-a789c9020fed",
+    "colId": "b9ea3e84-3a9a-4821-97b2-707f37500774",
+    "containerId": "",
+    "name": "Profile",
+    "url": "{{APP_URL}}/users/profile",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-06-26T04:09:43.873Z",
+    "modified": "2023-06-26T04:10:14.980Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTY4Nzc1MjU2MiwiZXhwIjoxNjg3ODM4OTYyfQ.3dG7M7WkgKqQwPszIoPHXpDEMyNJpw2UtYZ7XHud2S8"
+    },
+    "tests": []
+  },
+  {
+    "_id": "8c092576-cc60-4b55-be87-86e2584f6d6b",
+    "colId": "9575e95a-0fa1-40e2-a70b-eb4e2f444861",
+    "containerId": "",
+    "name": "Create",
+    "url": "{{APP_URL}}/products/",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2023-06-26T04:25:02.320Z",
+    "modified": "2023-06-26T04:34:41.071Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "1aca97d6-f344-4aaf-bcc8-b020e0a1397d",
+    "colId": "9575e95a-0fa1-40e2-a70b-eb4e2f444861",
+    "containerId": "",
+    "name": "Update",
+    "url": "{{APP_URL}}/products",
+    "method": "PATCH",
+    "sortNum": 20000,
+    "created": "2023-06-26T04:25:07.054Z",
+    "modified": "2023-06-26T04:39:30.554Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "0184783f-e036-4663-90fb-16e3a999c87b",
+    "colId": "9575e95a-0fa1-40e2-a70b-eb4e2f444861",
+    "containerId": "",
+    "name": "Get by ID",
+    "url": "{{APP_URL}}/products/1",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2023-06-26T04:25:34.324Z",
+    "modified": "2023-06-26T04:39:37.634Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "7ddff7b8-05bb-454a-9bba-17f678eb2fef",
+    "colId": "9575e95a-0fa1-40e2-a70b-eb4e2f444861",
+    "containerId": "",
+    "name": "Get All",
+    "url": "{{APP_URL}}/products",
+    "method": "GET",
+    "sortNum": 50000,
+    "created": "2023-06-26T04:25:42.718Z",
+    "modified": "2023-06-26T04:39:41.781Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "6f3076e2-c19d-4ec8-b598-507ccb298ac9",
+    "colId": "9575e95a-0fa1-40e2-a70b-eb4e2f444861",
+    "containerId": "",
+    "name": "Delete",
+    "url": "{{APP_URL}}/products/1",
+    "method": "DELETE",
+    "sortNum": 60000,
+    "created": "2023-06-26T04:26:25.311Z",
+    "modified": "2023-06-26T04:39:50.115Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { ErrorCustomException } from 'src/utils/exception/error.filter';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 
@@ -7,24 +8,60 @@ import { UpdateProductDto } from './dto/update-product.dto';
 export class ProductService {
   constructor(private prisma: PrismaService) {}
 
-  create(createProductDto: CreateProductDto) {
+  async create(createProductDto: CreateProductDto) {
     try {
-    } catch (error) {}
+      return this.prisma.product.create({
+        data: {
+          name: createProductDto.name,
+          picture: 'https://placehold.co/600x400',
+          price: createProductDto.price,
+          currency: createProductDto.currency,
+          size: createProductDto.size,
+          gender: createProductDto.gender,
+          status: createProductDto.status,
+          detail: createProductDto.detail,
+          description: createProductDto.description,
+        },
+      });
+    } catch (error) {
+      ErrorCustomException.handle(error, 'product');
+    }
   }
 
   findAll() {
-    return `This action returns all product`;
+    try {
+      return this.prisma.product.findMany({});
+    } catch (error) {
+      ErrorCustomException.handle(error, 'product');
+    }
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} product`;
+    try {
+      return this.prisma.product.findFirstOrThrow({ where: { id } });
+    } catch (error) {
+      ErrorCustomException.handle(error, 'product');
+    }
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+    try {
+      return this.prisma.product.update({
+        where: { id },
+        data: {
+          ...updateProductDto,
+        },
+      });
+    } catch (error) {
+      ErrorCustomException.handle(error, 'product');
+    }
   }
 
   remove(id: number) {
-    return `This action removes a #${id} product`;
+    try {
+      return this.prisma.product.delete({ where: { id } });
+    } catch (error) {
+      ErrorCustomException.handle(error, 'product');
+    }
   }
 }
