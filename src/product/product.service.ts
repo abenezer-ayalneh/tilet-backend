@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ErrorCustomException } from 'src/utils/exception/error.filter';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -6,19 +7,26 @@ import { UpdateProductDto } from './dto/update-product.dto';
 
 @Injectable()
 export class ProductService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private cloudinary: CloudinaryService,
+  ) {}
 
-  async create(createProductDto: CreateProductDto) {
+  async create(
+    createProductDto: CreateProductDto,
+    picture: Express.Multer.File,
+  ) {
     try {
+      const uploadedImage = await this.cloudinary.fileUpload(picture);
       return this.prisma.product.create({
         data: {
           name: createProductDto.name,
-          picture: 'https://placehold.co/600x400',
+          picture: uploadedImage.secure_url,
+          picture_public_id: uploadedImage.public_id,
           price: createProductDto.price,
           currency: createProductDto.currency,
           size: createProductDto.size,
           gender: createProductDto.gender,
-          status: createProductDto.status,
           detail: createProductDto.detail,
           description: createProductDto.description,
         },
@@ -28,28 +36,45 @@ export class ProductService {
     }
   }
 
-  findAll() {
+  async findAll() {
     try {
-      return this.prisma.product.findMany({});
+      return await this.prisma.product.findMany({});
     } catch (error) {
       ErrorCustomException.handle(error, 'product');
     }
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
     try {
-      return this.prisma.product.findFirstOrThrow({ where: { id } });
+      return await this.prisma.product.findFirstOrThrow({ where: { id } });
     } catch (error) {
       ErrorCustomException.handle(error, 'product');
     }
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
+  async update(
+    id: number,
+    updateProductDto: UpdateProductDto,
+    picture: Express.Multer.File,
+  ) {
     try {
-      return this.prisma.product.update({
+      const product = await this.prisma.product.findFirstOrThrow({
+        where: { id },
+      });
+      let uploadedFile = undefined;
+      if (picture) {
+        uploadedFile = await this.cloudinary.fileUpload(picture);
+        if (product.picture_public_id)
+          this.cloudinary.cloudinary.uploader.destroy(
+            product.picture_public_id,
+          );
+      }
+      return await this.prisma.product.update({
         where: { id },
         data: {
           ...updateProductDto,
+          picture: uploadedFile?.secure_url,
+          picture_public_id: uploadedFile?.public_id,
         },
       });
     } catch (error) {
@@ -57,9 +82,9 @@ export class ProductService {
     }
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     try {
-      return this.prisma.product.delete({ where: { id } });
+      return await this.prisma.product.delete({ where: { id } });
     } catch (error) {
       ErrorCustomException.handle(error, 'product');
     }

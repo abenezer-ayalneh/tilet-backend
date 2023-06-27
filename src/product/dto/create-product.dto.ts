@@ -9,9 +9,9 @@ import {
 import { ErrorMessages } from 'src/utils/maps/error.maps';
 
 enum ProductSize {
-  'SMALL',
-  'MEDIUM',
-  'LARGE',
+  'S',
+  'M',
+  'L',
   'XL',
   'XXL',
   'XXXL',
@@ -39,17 +39,9 @@ export class CreateProductDto {
     message: ErrorMessages.IS_NOT_VALID,
     each: true,
   })
-  @IsNotEmpty({ message: ErrorMessages.IS_EMPTY })
+  @IsOptional()
   size: Array<
-    | 'SMALL'
-    | 'MEDIUM'
-    | 'LARGE'
-    | 'XL'
-    | 'XXL'
-    | 'XXXL'
-    | 'XXXXL'
-    | 'XXXXXL'
-    | 'FREE'
+    'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL' | 'XXXXL' | 'XXXXXL' | 'FREE'
   >;
 
   @IsEnum(['MALE', 'FEMALE', 'BOTH'], {

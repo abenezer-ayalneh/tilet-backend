@@ -9,33 +9,34 @@ generator client {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  name         String
-  username     String   @unique
-  email        String   @unique
-  phone_number String
-  password     String
-  picture      String   @default("https://placehold.co/600x400")
-  status       Boolean  @default(true)
-  created_at   DateTime @default(now())
-  updated_at   DateTime @default(now()) @updatedAt
+  id                Int      @id @default(autoincrement())
+  name              String
+  username          String   @unique
+  email             String   @unique
+  phone_number      String
+  password          String
+  picture           String?
+  picture_public_id String?
+  status            Boolean  @default(true)
+  created_at        DateTime @default(now())
+  updated_at        DateTime @default(now()) @updatedAt
 
   @@map("users")
 }
 
 model Product {
-  id          Int             @id @default(autoincrement())
-  name        String
-  picture     String
-  price       Float
-  currency    ProductCurrency @default(BIRR)
-  size        ProductSize[]
-  gender      ProductGender
-  description String?
-  status      ProductStatus
-  detail      Json?
-  created_at  DateTime        @default(now())
-  updated_at  DateTime        @default(now()) @updatedAt
+  id                Int             @id @default(autoincrement())
+  name              String
+  picture           String
+  picture_public_id String?
+  price             Float
+  currency          ProductCurrency @default(BIRR)
+  size              ProductSize[]   @default([FREE])
+  gender            ProductGender   @default(BOTH)
+  description       String?
+  detail            Json?
+  created_at        DateTime        @default(now())
+  updated_at        DateTime        @default(now()) @updatedAt
 
   Ratings Rating[]
 
@@ -49,9 +50,9 @@ enum ProductGender {
 }
 
 enum ProductSize {
-  SMALL
-  MEDIUM
-  LARGE
+  S
+  M
+  L
   XL
   XXL
   XXXL
