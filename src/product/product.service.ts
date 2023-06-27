@@ -9,7 +9,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 export class ProductService {
   constructor(
     private prisma: PrismaService,
-    private cloudinary: CloudinaryService,
+    private cloudinaryService: CloudinaryService,
   ) {}
 
   async create(
@@ -17,7 +17,7 @@ export class ProductService {
     picture: Express.Multer.File,
   ) {
     try {
-      const uploadedImage = await this.cloudinary.fileUpload(picture);
+      const uploadedImage = await this.cloudinaryService.fileUpload(picture);
       return this.prisma.product.create({
         data: {
           name: createProductDto.name,
@@ -63,9 +63,9 @@ export class ProductService {
       });
       let uploadedFile = undefined;
       if (picture) {
-        uploadedFile = await this.cloudinary.fileUpload(picture);
+        uploadedFile = await this.cloudinaryService.fileUpload(picture);
         if (product.picture_public_id)
-          this.cloudinary.cloudinary.uploader.destroy(
+          this.cloudinaryService.cloudinary.uploader.destroy(
             product.picture_public_id,
           );
       }
