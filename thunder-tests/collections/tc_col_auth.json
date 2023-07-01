@@ -1,0 +1,78 @@
+{
+  "_id": "b9ea3e84-3a9a-4821-97b2-707f37500774",
+  "colName": "Auth",
+  "created": "2023-06-19T18:24:21.192Z",
+  "sortNum": 10000,
+  "folders": [],
+  "requests": [
+    {
+      "_id": "12821d7f-b23a-464d-81d1-96d5c5540b62",
+      "colId": "b9ea3e84-3a9a-4821-97b2-707f37500774",
+      "containerId": "",
+      "name": "Login",
+      "url": "{{APP_URL}}/auth/signin",
+      "method": "POST",
+      "sortNum": 10000,
+      "created": "2023-06-20T15:51:12.522Z",
+      "modified": "2023-06-23T03:28:21.240Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"username\" : \"john.doe\",\n  \"password\" : \"Pa$$w0rd###\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "cca08def-a07e-4454-bccd-dd7339724a2f",
+      "colId": "b9ea3e84-3a9a-4821-97b2-707f37500774",
+      "containerId": "",
+      "name": "Sign Up",
+      "url": "{{APP_URL}}/auth/signup",
+      "method": "POST",
+      "sortNum": 20000,
+      "created": "2023-06-23T02:47:24.400Z",
+      "modified": "2023-06-27T11:59:31.094Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "formdata",
+        "raw": "",
+        "form": [
+          {
+            "name": "name",
+            "value": "Dwight Shrudt"
+          },
+          {
+            "name": "username",
+            "value": "dwight.shrudt"
+          },
+          {
+            "name": "email",
+            "value": "dwight.shrudt@tilet.com"
+          },
+          {
+            "name": "phoneNumber",
+            "value": "0987654321"
+          },
+          {
+            "name": "password",
+            "value": "Pa$$w0rd"
+          },
+          {
+            "name": "confirmPassword",
+            "value": "Pa$$w0rd"
+          }
+        ],
+        "files": [
+          {
+            "name": "picture",
+            "value": "../../../../../Downloads/funny-racoon.webp"
+          }
+        ]
+      },
+      "tests": []
+    }
+  ]
+}
