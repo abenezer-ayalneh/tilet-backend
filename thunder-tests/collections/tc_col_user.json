@@ -1,0 +1,209 @@
+{
+  "_id": "39dc2514-b2a3-4d30-9734-a1ea3ecf6727",
+  "colName": "User",
+  "created": "2023-06-27T12:05:59.077Z",
+  "sortNum": 30000,
+  "folders": [],
+  "requests": [
+    {
+      "_id": "49cf82f2-c803-4a8a-ac04-9317f4d647cf",
+      "colId": "39dc2514-b2a3-4d30-9734-a1ea3ecf6727",
+      "containerId": "",
+      "name": "Update",
+      "url": "{{APP_URL}}/users/3",
+      "method": "PATCH",
+      "sortNum": 30000,
+      "created": "2023-06-27T12:05:59.085Z",
+      "modified": "2023-06-27T12:39:11.998Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "formdata",
+        "raw": "",
+        "form": [
+          {
+            "name": "name",
+            "value": "Jim Halpert"
+          }
+        ],
+        "files": [
+          {
+            "name": "picture",
+            "value": "../../../../../Downloads/funny-racoon.webp"
+          }
+        ]
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsImlhdCI6MTY4Nzg2NzE3MSwiZXhwIjoxNjg3OTUzNTcxfQ.SQVSIoTTedXM0ByAK858_LQBaCIq603DdJ71jCLurMM"
+      },
+      "tests": []
+    },
+    {
+      "_id": "df83a3f5-82a3-4a2d-ae4c-4d12162e4542",
+      "colId": "39dc2514-b2a3-4d30-9734-a1ea3ecf6727",
+      "containerId": "",
+      "name": "Delete",
+      "url": "{{APP_URL}}/users/9",
+      "method": "DELETE",
+      "sortNum": 110000,
+      "created": "2023-06-27T12:05:59.086Z",
+      "modified": "2023-06-27T12:12:17.953Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"id\" : \"users:sqb5e3vyqore4gyy3jfg\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "738b8334-f369-4fc3-b219-4f8c10785b05",
+      "colId": "39dc2514-b2a3-4d30-9734-a1ea3ecf6727",
+      "containerId": "",
+      "name": "Change password",
+      "url": "{{url}}/users/users:evp8yz1byp7utgh6jazw/password/change?password=passpass&confirmPassword=passpass1",
+      "method": "PATCH",
+      "sortNum": 75000,
+      "created": "2023-06-27T12:05:59.087Z",
+      "modified": "2023-06-27T12:11:56.536Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "password",
+          "value": "passpass",
+          "isPath": false
+        },
+        {
+          "name": "confirmPassword",
+          "value": "passpass1",
+          "isPath": false
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"password\": \"PAaaa$$W0RD#1\",\n  \"confirmPassword\": \"PAaaa$$W0RD#1\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "d8e4d9a0-2384-4452-b67f-7b3aed82a8c2",
+      "colId": "39dc2514-b2a3-4d30-9734-a1ea3ecf6727",
+      "containerId": "",
+      "name": "Get profile",
+      "url": "{{APP_URL}}/users/profile",
+      "method": "GET",
+      "sortNum": 70000,
+      "created": "2023-06-27T12:05:59.088Z",
+      "modified": "2023-06-27T12:06:25.805Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsImlhdCI6MTY4Nzg2NzE3MSwiZXhwIjoxNjg3OTUzNTcxfQ.SQVSIoTTedXM0ByAK858_LQBaCIq603DdJ71jCLurMM"
+      },
+      "tests": []
+    },
+    {
+      "_id": "a1350c6b-e7aa-48b9-b622-9802ecb34621",
+      "colId": "39dc2514-b2a3-4d30-9734-a1ea3ecf6727",
+      "containerId": "",
+      "name": "Forget password",
+      "url": "{{APP_URL}}/auth/forget",
+      "method": "POST",
+      "sortNum": 80000,
+      "created": "2023-06-27T12:05:59.089Z",
+      "modified": "2023-06-27T12:11:25.831Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"john.doe@ablaze.labs\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "e9034b7b-f1b8-40f1-b816-2d475c77b64f",
+      "colId": "39dc2514-b2a3-4d30-9734-a1ea3ecf6727",
+      "containerId": "",
+      "name": "Confirm OTP",
+      "url": "{{APP_URL}}/auth/forget/otp",
+      "method": "POST",
+      "sortNum": 90000,
+      "created": "2023-06-27T12:05:59.090Z",
+      "modified": "2023-06-27T12:11:40.427Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"otpCode\": 17402,\n  \"token\": \"16aca9056f01b7c5a33a74c88e9919f5c5ca83a8a2511cd0d9f3a358d6b3e8d92964179dfd144dc3325881e3b095f0c36f9e41e678f02ec50ffe5794c388a492\",\n  \"email\": \"john.doe@ablaze.labs\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "ab785e9f-6e84-482a-8176-3452adf64875",
+      "colId": "39dc2514-b2a3-4d30-9734-a1ea3ecf6727",
+      "containerId": "",
+      "name": "Reset password",
+      "url": "{{APP_URL}}/auth/forget/reset?token",
+      "method": "POST",
+      "sortNum": 100000,
+      "created": "2023-06-27T12:05:59.093Z",
+      "modified": "2023-06-27T12:11:47.418Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "token",
+          "value": "",
+          "isPath": false
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"token\": \"16aca9056f01b7c5a33a74c88e9919f5c5ca83a8a2511cd0d9f3a358d6b3e8d92964179dfd144dc3325881e3b095f0c36f9e41e678f02ec50ffe5794c388a492\",\n  \"email\": \"john.doe@ablaze.labs\",\n  \"password\": \"Password@1234\",\n  \"confirmPassword\": \"Password@1234\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "528b3b2d-0b6e-48a5-8826-12e0cfe10925",
+      "colId": "39dc2514-b2a3-4d30-9734-a1ea3ecf6727",
+      "containerId": "",
+      "name": "Get all",
+      "url": "{{APP_URL}}/users",
+      "method": "GET",
+      "sortNum": 55000,
+      "created": "2023-06-27T12:05:59.094Z",
+      "modified": "2023-06-27T12:12:10.145Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsImlhdCI6MTY4Nzg2NzE3MSwiZXhwIjoxNjg3OTUzNTcxfQ.SQVSIoTTedXM0ByAK858_LQBaCIq603DdJ71jCLurMM"
+      },
+      "tests": []
+    },
+    {
+      "_id": "aee52d00-d437-4413-ad7f-7ea25f62023a",
+      "colId": "39dc2514-b2a3-4d30-9734-a1ea3ecf6727",
+      "containerId": "",
+      "name": "Get by ID",
+      "url": "{{APP_URL}}/users",
+      "method": "GET",
+      "sortNum": 62500,
+      "created": "2023-06-27T12:12:30.725Z",
+      "modified": "2023-06-27T12:12:30.725Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsImlhdCI6MTY4Nzg2NzE3MSwiZXhwIjoxNjg3OTUzNTcxfQ.SQVSIoTTedXM0ByAK858_LQBaCIq603DdJ71jCLurMM"
+      },
+      "tests": []
+    }
+  ]
+}
