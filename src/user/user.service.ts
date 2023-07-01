@@ -9,13 +9,64 @@ import { ChangePasswordDto } from './dto/change-password.dto';
 import { UpdateUserRequest } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { SignInDto } from 'src/auth/dto/sign-in-with-email.dto';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { UploadApiResponse } from 'cloudinary';
 
 @Injectable()
 export class UserService {
   constructor(
     private configService: ConfigService,
     private prismaService: PrismaService,
+    private cloudinaryService: CloudinaryService,
   ) {}
+
+  async create(request: CreateUserDto, picture: Express.Multer.File) {
+    try {
+      const hashedPassword = await argon.hash(request.password);
+      let uploadedPicture: UploadApiResponse | undefined = undefined;
+      if (picture) {
+        uploadedPicture = await this.cloudinaryService.fileUpload(picture);
+      }
+      const user = await this.prismaService.user.create({
+        data: {
+          name: request.name,
+          username: request.username,
+          phone_number: request.phoneNumber,
+          password: hashedPassword,
+          email: request.email,
+          picture: uploadedPicture?.secure_url,
+          picture_public_id: uploadedPicture?.public_id,
+        },
+      });
+
+      return user;
+    } catch (error) {
+      console.error(error);
+      if (error instanceof ErrorCustomException) {
+        throw error;
+      } else if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new ErrorCustomException(
+            ErrorMessages.EXISTS,
+            HttpStatus.UNPROCESSABLE_ENTITY,
+            'user',
+          );
+        } else {
+          throw new ErrorCustomException(
+            ErrorMessages.SOMETHING_WENT_WRONG,
+            HttpStatus.INTERNAL_SERVER_ERROR,
+            'user',
+          );
+        }
+      } else {
+        throw new ErrorCustomException(
+          ErrorMessages.SOMETHING_WENT_WRONG,
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          'user',
+        );
+      }
+    }
+  }
 
   async getUsers() {
     try {
@@ -84,9 +135,31 @@ export class UserService {
     }
   }
 
-  async update(id: number, request: UpdateUserRequest) {
+  async update(
+    id: number,
+    request: UpdateUserRequest,
+    picture: Express.Multer.File,
+  ) {
     try {
-      await this.prismaService.user.update({ where: { id }, data: request });
+      const user = await this.prismaService.user.findFirstOrThrow({
+        where: { id },
+      });
+      let uploadedPicture: UploadApiResponse | undefined = undefined;
+      if (picture) {
+        uploadedPicture = await this.cloudinaryService.fileUpload(picture);
+        if (user.picture_public_id)
+          this.cloudinaryService.cloudinary.uploader.destroy(
+            user.picture_public_id,
+          );
+      }
+      await this.prismaService.user.update({
+        where: { id },
+        data: {
+          ...request,
+          picture: uploadedPicture?.secure_url,
+          picture_public_id: uploadedPicture?.public_id,
+        },
+      });
     } catch (error) {
       console.error(error);
       if (error instanceof ErrorCustomException) {
@@ -95,48 +168,6 @@ export class UserService {
         if (error.code === 'P2025') {
           throw new ErrorCustomException(
             ErrorMessages.NOT_FOUND,
-            HttpStatus.UNPROCESSABLE_ENTITY,
-            'user',
-          );
-        } else {
-          throw new ErrorCustomException(
-            ErrorMessages.SOMETHING_WENT_WRONG,
-            HttpStatus.INTERNAL_SERVER_ERROR,
-            'user',
-          );
-        }
-      } else {
-        throw new ErrorCustomException(
-          ErrorMessages.SOMETHING_WENT_WRONG,
-          HttpStatus.INTERNAL_SERVER_ERROR,
-          'user',
-        );
-      }
-    }
-  }
-
-  async create(request: CreateUserDto) {
-    try {
-      const hashedPassword = await argon.hash(request.password);
-      const user = await this.prismaService.user.create({
-        data: {
-          name: request.name,
-          username: request.username,
-          phone_number: request.phoneNumber,
-          password: hashedPassword,
-          email: request.email,
-        },
-      });
-
-      return user;
-    } catch (error) {
-      console.error(error);
-      if (error instanceof ErrorCustomException) {
-        throw error;
-      } else if (error instanceof PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new ErrorCustomException(
-            ErrorMessages.EXISTS,
             HttpStatus.UNPROCESSABLE_ENTITY,
             'user',
           );

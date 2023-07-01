@@ -18,9 +18,9 @@ export class AuthService {
     private userService: UserService,
   ) {}
 
-  async register(request: CreateUserDto) {
+  async register(request: CreateUserDto, picture: Express.Multer.File) {
     try {
-      const user = await this.userService.create(request);
+      const user = await this.userService.create(request, picture);
 
       return { ...(await this.signToken(user.id)), user };
     } catch (error) {
