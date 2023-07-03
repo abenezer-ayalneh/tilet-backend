@@ -191,7 +191,7 @@ export class UserService {
   async check(request: SignInDto) {
     try {
       return await this.prismaService.user.findFirstOrThrow({
-        where: { username: request.username },
+        where: { OR: [{ username: request.email }, { email: request.email }] },
       });
     } catch (error) {
       console.error(error);

@@ -6,7 +6,7 @@ export class SignInDto {
   @IsString({ message: ErrorMessages.IS_NOT_STRING })
   @IsNotEmpty({ message: ErrorMessages.IS_EMPTY })
   @Transform(({ value }) => value?.trim())
-  username: string;
+  email: string;
 
   @IsString({ message: ErrorMessages.IS_NOT_STRING })
   @IsNotEmpty({ message: ErrorMessages.IS_EMPTY })
