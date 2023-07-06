@@ -72,7 +72,7 @@ export class AuthService {
       );
     }
 
-    return this.signToken(user.id);
+    return { ...(await this.signToken(user.id)), user };
   }
 
   async signToken(sub: number | string): Promise<{ accessToken: string }> {

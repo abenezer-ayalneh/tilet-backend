@@ -32,7 +32,7 @@ export class CreateProductDto {
   price: number;
 
   @IsEnum(['BIRR', 'DOLLAR'], { message: ErrorMessages.IS_NOT_VALID })
-  @IsNotEmpty({ message: ErrorMessages.IS_EMPTY })
+  @IsOptional()
   currency: 'BIRR' | 'DOLLAR';
 
   @IsEnum(ProductSize, {
@@ -47,17 +47,12 @@ export class CreateProductDto {
   @IsEnum(['MALE', 'FEMALE', 'BOTH'], {
     message: ErrorMessages.IS_NOT_VALID,
   })
-  @IsNotEmpty({ message: ErrorMessages.IS_EMPTY })
+  @IsOptional()
   gender: 'MALE' | 'FEMALE' | 'BOTH';
 
   @IsString({ message: ErrorMessages.IS_NOT_STRING })
   @IsOptional()
   description?: string;
-
-  @IsEnum(['AVAILABLE', 'UNAVAILABLE', 'SOLD', 'COMING_SOON'], {
-    message: ErrorMessages.IS_NOT_VALID,
-  })
-  status: 'AVAILABLE' | 'UNAVAILABLE' | 'SOLD' | 'COMING_SOON';
 
   @IsOptional()
   detail?: object;

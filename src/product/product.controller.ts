@@ -12,16 +12,19 @@ import {
   ParseFilePipe,
   UploadedFile,
   UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 
 @Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
   @UseInterceptors(FileInterceptor('picture', { dest: './uploads' }))
   create(
@@ -52,7 +55,7 @@ export class ProductController {
   findOne(@Param('id') id: string) {
     return this.productService.findOne(+id);
   }
-
+  @UseGuards(AuthGuard)
   @Patch(':id')
   @UseInterceptors(FileInterceptor('picture', { dest: './uploads' }))
   update(
@@ -75,6 +78,7 @@ export class ProductController {
     return this.productService.update(+id, updateProductDto, picture);
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.productService.remove(+id);
